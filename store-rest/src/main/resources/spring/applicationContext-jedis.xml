@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 单机版redis，配置Jedis实例， 让别人调用 -->
+	<bean id="redisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg name="host" value="${JEDIS_BASE_HOST}"></constructor-arg>
+		<constructor-arg name="port" value="${JEDIS_BASE_PORT}"></constructor-arg>
+		<!-- 使用默认连接池配置 -->
+		<!-- <constructor-arg name="poolConfig" ref="jedisPoolConfig"></constructor-arg> -->
+	</bean>
+	<!-- 将dao层的JedisClientSingle注入到Spring中 -->
+	<bean id="jedisClient" class="com.store.rest.dao.impl.JedisClientSingle"/>
+	
+</beans>
